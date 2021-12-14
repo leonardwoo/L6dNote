@@ -1,0 +1,7 @@
+Windows Registry Editor Version 5.00
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Drivers32]
+"vidc.cvid"="iccvid.dll"
+"vidc.iv31"="ir32_32.dll"
+"vidc.iv32"="ir32_32.dll"
+"vidc.iv41"="ir41_32.ax"
+"vidc.iv50"="ir50_32.dll"
