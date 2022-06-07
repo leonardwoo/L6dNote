@@ -50,9 +50,9 @@ def main():
         sb.append('\n')
     
     sub = ''.join(sb)
-    sub = base64.b64encode(sub.encode('utf8')).decode('utf8')
+    data = base64.b64encode(sub.encode('utf8')).decode('utf8')
     with open("ss-m.txt", "w+") as file:
-        file.write(sub)
+        file.write(data)
 
 
 if __name__ == '__main__':
