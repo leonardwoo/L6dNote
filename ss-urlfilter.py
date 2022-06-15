@@ -43,6 +43,10 @@ def subscribe_filter(data=''):
         if find("^", lineName) or find("", host):
             continue
         
+        extend = parse_qs(urlobj.query)
+        if (extend != ""):
+            host = host + "?plugin=" + quote(extend['plugin'][0])
+        
         lineName = "✈️" + lineName
         # lineName = quote(lineName)
         ss = "ss://{0}@{1}#{2}".format(authInfo, host, lineName)
