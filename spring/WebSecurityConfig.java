@@ -22,7 +22,7 @@ public class WebSecurityConfig {
             .formLogin((form) -> form.loginPage("/login").permitAll()) // login/sign in
             .logout((logout) -> logout.logoutSuccessUrl("/").permitAll()) // logout/sign out
 //            .rememberMe().rememberMeParameter("rememberMe")
-            .csrf().disable() // CSRF disable
+//            .csrf().disable() // CSRF disable
     ;
     return http.build();
   }
