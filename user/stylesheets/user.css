@@ -1,0 +1,39 @@
+body {
+  background: #FAFAFA linear-gradient(90deg, #60a5fa, #818cf8, #c084fc) no-repeat;
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  min-height: 100vh;
+}
+.vaild-info {
+  font-size: .75rem;
+  color: #dc2626;
+}
+
+.w-1\/2 {
+  width: 50%;
+}
+.before\:w-1\/2::before {
+  width: 50%;
+}
+.after\:w-1\/2::after {
+  width: 50%;
+}
+
+.before\:-ml-1\/2::before {
+  margin-left: -50%;
+}
+.after\:-mr-1\/2::after {
+  margin-right: -50%;
+}
+
+.bg-img-camera {
+  background-image: url('../images/icons/camera-white.svg');
+}
+
+.bg-img-size {
+  background-size: 1.25rem;
+}
+
+/* .checked\:before\:checkbox-content:checked:before {
+  content: url('../images/icons/checked-white.svg') !important;
+} */
+
