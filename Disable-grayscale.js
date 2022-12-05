@@ -12,13 +12,18 @@
 (function() {
     'use strict';
 
-    var elements = [
-        document.documentElement,
-        document.body
-    ];
-    for (var k in elements) {
-        var element = elements[k];
-        element.style.filter = "none";
-        element.style.filter = "grayscale(0)";
-    }
+    var css = [
+	"* {",
+	"    -webkit-filter: grayscale(0);",
+	"    -moz-filter: grayscale(0);",
+	"    -ms-filter: grayscale(0);",
+	"    -o-filter: grayscale(0);",
+	"    filter: grayscale(0);",
+	"}",
+].join("\n");
+ 
+    var node = document.createElement("style");
+	node.type = "text/css";
+	node.appendChild(document.createTextNode(css));
+	document.head.appendChild(node);
 })();
