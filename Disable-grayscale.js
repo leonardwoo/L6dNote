@@ -1,11 +1,11 @@
 // ==UserScript==
-// @name         Anti-Gray
-// @namespace    http://l6d.me/
-// @version      0.1
-// @description  fuck gray page
-// @author       LW
-// @include      http://*/*
-// @include      https://*/*
+// @name         Disable grayscale
+// @namespace    all-round
+// @version      0.2
+// @description  Disable css filter grayscale
+// @author       Leonard Woo
+// @license      MIT
+// @match        *://*/*
 // @grant        none
 // ==/UserScript==
 
