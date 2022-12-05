@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Disable grayscale
 // @namespace    all-round
-// @version      0.2
+// @version      0.3
 // @description  Disable css filter grayscale
 // @author       Leonard Woo
 // @license      MIT
