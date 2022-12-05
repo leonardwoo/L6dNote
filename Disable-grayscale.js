@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Disable grayscale
 // @namespace    all-round
-// @version      0.4
+// @version      0.5
 // @description  Disable css filter grayscale
 // @author       Leonard Woo
 // @license      MIT
@@ -13,17 +13,17 @@
     'use strict';
 
     var css = [
-	"* {",
+	"html, body {",
 	"    -webkit-filter: grayscale(0);",
 	"    -moz-filter: grayscale(0);",
 	"    -ms-filter: grayscale(0);",
 	"    -o-filter: grayscale(0);",
 	"    filter: grayscale(0);",
 	"}",
-].join("\n");
- 
+    ].join("\n");
+
     var node = document.createElement("style");
-	node.type = "text/css";
-	node.appendChild(document.createTextNode(css));
-	document.head.appendChild(node);
+    node.type = "text/css";
+    node.appendChild(document.createTextNode(css));
+    document.head.appendChild(node);
 })();
