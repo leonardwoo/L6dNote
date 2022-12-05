@@ -17,7 +17,8 @@
         document.body
     ];
     for (var k in elements) {
-        var element = elements[k]
-        element.style.filter = "none"
+        var element = elements[k];
+        element.style.filter = "none";
+        element.style.filter = "grayscale(0)";
     }
 })();
