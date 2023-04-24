@@ -1,0 +1,126 @@
+= RBAC (Role-Based Access Control)
+
+See https://en.wikipedia.org/wiki/Role-based_access_control and
+https://www.openpolicyagent.org/docs/latest/comparison-to-other-systems/
+
+[source,json]
+----
+{
+    "user": {
+        "username": "",
+        "id": "",
+    },
+    "role": {
+        "name": "Admin",
+        "id": "1"
+    },
+    "permissions": [
+        {
+            "id": "1",
+            "actions": [
+                "read",
+                "write"
+            ],
+            "resources": [
+                "*"
+            ]
+        }
+    ],
+    "session": "",
+    "user_assignment": {
+        "user_id": "",
+        "role_id": "1"
+    },
+    "permissions_assignment": [
+        {
+            "permission_id": "1",
+            "role_id": "1"
+        }
+    ]
+}
+----
+
+[source,sql]
+----
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(190) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `role` (
+  `id` smallint(5) unsigned NOT NULL,
+  `name` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `user_role` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) unsigned NOT NULL,
+  `rid` smallint(5) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_uid` (`uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `permission` (
+  `id` int(10) unsigned NOT NULL,
+  `action_read` tinyint(1) NOT NULL,
+  `action_write` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `role_permission` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `rid` smallint(5) unsigned NOT NULL,
+  `pid` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_rid` (`rid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `resource` (
+  `id` int(10) unsigned NOT NULL,
+  `path` text NOT NULL,
+  PRIMARY KEY (`id`),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `permission_resource` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` int(10) unsigned NOT NULL,
+  `rsid` int(10) unsigned NOT NULL,
+   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+----
+
+
+== User metadata
+
+[source,sql]
+----
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `username` varchar(190) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `avatar_uri` varchar(255) NOT NULL,
+  `nickname` varchar(200) NOT NULL,
+  `gender` tinyint(3) unsigned NOT NULL DEFAULT 1 COMMENT '0 cis famale, 1 cis male, 2+ other',
+  `email` varchar(300) NOT NULL,
+  `phone` varchar(30) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `bio` text NOT NULL DEFAULT '',
+  `created` datetime NOT NULL,
+  `updated` datetime NULL DEFAULT NULL,
+  `email_verified` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '0 unverified, 1 verified',
+  `is_locked` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT `0 unlocked, 1 locked`,
+  `is_blocked` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '0 unblocked, 1 blocked',
+  `is_disable` tinyint(1) unsigned NOT NULL DEFAULT 0 COMMENT '0 enable, 1 disable',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `UQE_username` (`username`),
+  UNIQUE KEY `UQE_email` (`email`),
+  KEY `IDX_username_email` (`username`,`email`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+----
+
+. `password` is HASH with salt
+. `gender` include 56+ gender. See https://abcnews.go.com/blogs/headlines/2014/02/heres-a-list-of-58-gender-options-for-facebook-users
+. `phone` include country code
+. `is_locked`  - private account
+. `is_blocked` - temporary ban
+. `is_disable` - permanent ban
