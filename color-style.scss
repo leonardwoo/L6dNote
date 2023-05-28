@@ -1,4 +1,4 @@
-@use 'MD-color-palettes.inc';
+@use 'MD-color-palettes';
 
 $red: red-50, red-100, red-200, red-300, red-400, red-500, red-600, red-700, red-800, red-900, red-a100, red-a200, red-a400, red-a700;
 $pink: pink-50, pink-100, pink-200, pink-300, pink-400, pink-500, pink-600, pink-700, pink-800, pink-900, pink-a100, pink-a200, pink-a400, pink-a700;
@@ -23,12 +23,13 @@ $gray: gray-50, gray-100, gray-200, gray-300, gray-400, gray-500, gray-600, gray
 $blue-gray: blue-gray-50, blue-gray-100, blue-gray-200, blue-gray-300, blue-gray-400, blue-gray-500, blue-gray-600, blue-gray-700, blue-gray-800, blue-gray-900;
 
 // black and white only one option
-$colors: $red, $pink, $purple, $deep-purple, $indigo, $blue, $light-blue, $cyan, $teal, $green, $light-green, $lime, $yellow, $amber, $orange, $deep-orange, $brown, $gray, $blue-gray, black, white;
+$colors: $red, $pink, $purple, $deep-purple, $indigo, $blue, $light-blue, $cyan, $teal, $green, $light-green, $lime, $yellow, $amber, $orange, $deep-orange, $brown, 
+  $gray, $blue-gray, inherit, transparent, black, white;
 
 @each $color in $colors {
-  .#{$color} {
+  .text-#{$color} {
     color: $color;
-    }
+  }
     
   .bg-#{$color} {
     background-color: $color;
@@ -37,5 +38,20 @@ $colors: $red, $pink, $purple, $deep-purple, $indigo, $blue, $light-blue, $cyan,
   .border-#{$color} {
     border-color: $color;
   }
-}
 
+  .decoration-#{$color} {
+    text-decoration-color: $color;
+  }
+
+  .outline-#{$color} {
+    outline-color: $color;
+  }
+
+  .accent-#{$color} {
+    accent-color: $color;
+  }
+
+  .caret-#{$color} {
+    caret-color: $color;
+  }
+}
