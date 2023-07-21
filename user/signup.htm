@@ -63,50 +63,70 @@
       </div>
     </div>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js@0.1.1/dist/pika.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@leonardwoo/pika-js@0.1.6/dist/pika.min.js" defer></script>
   <script>
 "use strict";
 
 window.addEventListener('load', (event) => {
 });
 
+function invaildInfo(inputId='',inputEIId='', regex='', message='') {
+  var vaildInput = document.getElementById(inputId);
+  var input_ei = document.getElementById(inputEIId);
+  if (!regex.test(vaildInput.value)) {
+    if (input_ei == null) {
+      input_ei = document.createElement('p');
+      input_ei.setAttribute('id', inputEIId);
+      vaildInput.parentNode.appendChild(input_ei);
+    }
+    input_ei.innerText = message;
+  } else {
+    if (input_ei != null) {
+      vaildInput.parentNode.removeChild(input_ei);
+    }
+  }
+}
+
+function invaildEqual(inputNode, inputEIId='', flag=false, message='') {
+  var input_ei = document.getElementById(inputEIId);
+  if (flag) {
+    if (input_ei == null) {
+      input_ei = document.createElement('p');
+      input_ei.setAttribute('id', inputEIId);
+      inputNode.parentNode.appendChild(input_ei);
+    }
+    input_ei.innerText = message;
+  } else {
+    if (input_ei != null) {
+      inputNode.parentNode.removeChild(input_ei);
+    }
+  }
+}
+
 document.getElementById('username').onchange = (event) => {
-  InvaildInfo('username', 'username_ei', /^[\w\-]{6,20}$/g, "This username is invalid");
+  invaildInfo('username', 'username_ei', /^[\w\-]{6,20}$/g, "This username is invalid");
   document.getElementById('username_ei').classList.add('vaild-info');
 }
 
 document.getElementById('email').onchange = (event) => {
-  InvaildInfo('email', 'email_ei', /^[a-zA-Z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+\@[a-z\d\-]+\.[a-z\d]+$/g, "The email address is invalid");
+  invaildInfo('email', 'email_ei', /^[a-zA-Z\d!#\$%&'\*\+\-\/=\?\^_`{\|}~]+\@[a-z\d\-]+\.[a-z\d]+$/g, "The email address is invalid");
   document.getElementById('email_ei').classList.add('vaild-info');
 }
 
 document.getElementById('password').onchange = (event) => {
-  InvaildInfo('password', 'password_ei', /^[a-zA-Z0-9!\\\"\#$%&'()*+,-\./:;<=>?\@[\]^_`{|}~]{8,20}$/g, "You need to enter a password");
+  invaildInfo('password', 'password_ei', /^[a-zA-Z0-9!\\\"\#$%&'()*+,-\./:;<=>?\@[\]^_`{|}~]{8,20}$/g, "You need to enter a password");
   document.getElementById('password_ei').classList.add('vaild-info');
 }
 
 document.getElementById('confirm_password').onchange = (event) => {
   var password = document.getElementById("password").value;
   var confirm_password = document.getElementById("confirm_password");
-  var confirm_password_ei = document.getElementById('confirm_password_ei');
-  if (password != confirm_password.value) {
-    if (confirm_password_ei == null) {
-      var confirm_password_ei = document.createElement('p');
-      confirm_password_ei.setAttribute('class', 'vaild-info');
-      confirm_password_ei.setAttribute('id', 'confirm_password_ei');
-      confirm_password_ei.innerText = "The password don't match";
-      confirm_password.parentNode.appendChild(confirm_password_ei);
-    }
-  } else {
-    if (confirm_password_ei != null) {
-      confirm_password.parentNode.removeChild(confirm_password_ei);
-    }
-  }
+  invaildEqual(confirm_password, 'confirm_password_ei', (password !== confirm_password.value), "The password don't match");
+  document.getElementById('confirm_password_ei').classList.add('vaild-info');
 }
 
 document.getElementById("singnup").onclick = (event) => {
-  if (document.getElementsByClassName('vaild-info') != null) {
+  if (document.getElementsByClassName('vaild-info').length > 0) {
     return;
   }
   axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
